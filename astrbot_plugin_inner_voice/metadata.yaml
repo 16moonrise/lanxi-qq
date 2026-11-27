@@ -1,0 +1,6 @@
+name: astrbot_plugin_inner_voice
+display_name: 内在驱动主动消息
+desc: 读你们最近 32 轮对话判断要不要主动开口，而不是按时间间隔，也不靠日记里的心情。
+version: v0.2.0
+author: local
+repo: ""

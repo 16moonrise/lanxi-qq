@@ -1,0 +1,83 @@
+﻿{
+  "enable": {
+    "type": "bool",
+    "description": "启用内在驱动主动消息",
+    "default": true
+  },
+  "owner_umo": {
+    "type": "string",
+    "description": "发给谁的会话 UMO",
+    "default": ""
+  },
+  "memory_dir": {
+    "type": "string",
+    "description": "记忆目录（留空自动推导为 <qqbot>\\memory）",
+    "default": ""
+  },
+  "persona_id": {
+    "type": "string",
+    "description": "人设名（从 data_v4.db 读取）",
+    "default": "default"
+  },
+  "interval_minutes": {
+    "type": "int",
+    "description": "自省间隔（分钟）",
+    "hint": "默认 40。每次都会读一遍最近 32 轮并调一次模型，间隔越短成本越高",
+    "default": 40
+  },
+  "dialog_turns": {
+    "type": "int",
+    "description": "读多少轮对话作为判断依据",
+    "hint": "1 轮 = 你一句 + 她一句。32 轮约 64 条，清洗后约 2600 token",
+    "default": 32
+  },
+  "max_silence_hours": {
+    "type": "float",
+    "description": "他多久没说话就不再判断（小时）",
+    "hint": "窗口不会过期，几天没聊时里面还是旧对话。超过这个时长就不拿旧话题开口",
+    "default": 12
+  },
+  "cards_core": {
+    "type": "int",
+    "description": "每次带几张高分记忆卡（importance ≥ 70）",
+    "default": 2
+  },
+  "cards_random": {
+    "type": "int",
+    "description": "每次再随机带几张普通卡（45–69 分）",
+    "default": 3
+  },
+  "max_text_chars": {
+    "type": "int",
+    "description": "主动消息字数上限",
+    "default": 40
+  },
+  "daily_cap": {
+    "type": "int",
+    "description": "每天最多主动几条",
+    "default": 6,
+    "hint": "上限，不一定跑满；她判断没理由就不发"
+  },
+  "min_gap_minutes": {
+    "type": "int",
+    "description": "两条之间的最小间隔（也是刚聊完的冷却）",
+    "default": 40
+  },
+  "quiet_hours": {
+    "type": "string",
+    "description": "免打扰时段，格式 起-止",
+    "hint": "支持跨零点，如 23-7",
+    "default": "1-7"
+  },
+  "start_delay_seconds": {
+    "type": "int",
+    "description": "启动后延迟多久开始第一轮自省",
+    "default": 90
+  },
+  "unanswered_limit": {
+    "type": "int",
+    "description": "连着几条没回复就收口",
+    "hint": "默认 1：她主动发一条、你还没回，就不再开口（不再连发）",
+    "default": 1
+  }
+}

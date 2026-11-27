@@ -1,0 +1,8 @@
+name: astrbot_plugin_fish_memory
+display_name: 记忆管家
+short_desc: 每日日记、每周自述、翻旧账
+desc: 给角色补上长期记忆的三件事：定时写日记（断电也不丢）、按天数重写一次「我是谁」（带版本备份）、按关键词翻旧账（按需检索历史原文，平时不占上下文）。
+version: v1.0.0
+author: local
+repo: ""
+astrbot_version: ">=4.0.0"

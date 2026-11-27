@@ -1,0 +1,33 @@
+# 备份与临时文件
+*.bak
+*.bak-*
+*.tmp
+*.log
+__pycache__/
+.pytest_cache/
+
+# 运行期数据（绝不提交）
+memory/
+data/
+*.db
+*.db-*
+*.jsonl
+*.npz
+*.safetensors
+*.onnx
+*.onnx.data
+
+# 配置实值（只提交 examples/*.example.json）
+config/
+*_config.json
+!examples/*.example.json
+
+# 凭据
+.env
+credentials*
+.credentials*
+
+# 构建产物
+dist/
+build/
+node_modules/

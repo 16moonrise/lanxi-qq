@@ -1,0 +1,222 @@
+﻿{
+  "diary_time": {
+    "type": "string",
+    "description": "每天写日记的时间（HH:MM）",
+    "default": "23:30"
+  },
+  "self_time": {
+    "type": "string",
+    "description": "每周重写自述的时间（HH:MM）",
+    "default": "22:00"
+  },
+  "watch_umos": {
+    "type": "list",
+    "description": "要记录和写日记的会话",
+    "default": [
+      ""
+    ]
+  },
+  "memory_dir": {
+    "type": "string",
+    "description": "记忆文件存放目录",
+    "default": ""
+  },
+  "max_diary_chars": {
+    "type": "int",
+    "description": "日记正文上限（字）；太小会写不下复述行",
+    "default": 800
+  },
+  "transcript_chars": {
+    "type": "int",
+    "description": "写日记时喂给模型的聊天记录上限（字）",
+    "hint": "4000 只够覆盖当天尾巴；整天对话约 8000-15000 字，建议 20000",
+    "default": 20000
+  },
+  "letter_cooldown_days": {
+    "type": "int",
+    "description": "两封信之间至少隔几天",
+    "hint": "按磁盘上她写过的最后一封信算；冷却期内写信会被挡下",
+    "default": 14
+  },
+  "inject_chars": {
+    "type": "int",
+    "description": "每次注入记忆卡的字数上限",
+    "default": 3000
+  },
+  "tone_reminder": {
+    "type": "string",
+    "description": "每轮都挂在系统提示末尾的口吻提醒",
+    "hint": "留空就不加。写称呼、语气这类容易漂移的规则；它每轮都生效但不写进会话历史，不占上下文",
+    "default": ""
+  },
+  "chat_tools": {
+    "type": "string",
+    "description": "对话轮保留的工具（逗号分隔；留空=全部摘掉）",
+    "hint": "工具定义每轮约 1.3k 字，实测让思考掉一半。留空 = 对话轮一个工具都不给，工具改走单独工具轮；想留就填 recall_history 这类工具名",
+    "default": ""
+  },
+  "inject_every_turns": {
+    "type": "int",
+    "description": "每聊多少轮注入一次记忆卡",
+    "hint": "1 轮 = 主人一条消息。每轮都注入很贵且重复；30 轮约等于活跃聊天每半小时一次",
+    "default": 30
+  },
+  "clean_history": {
+    "type": "bool",
+    "description": "注入前清洗历史排版（她的旧回复并成一段、去掉 &&表情&&）",
+    "hint": "实测：多段历史会让三连句率从 17% 涨到 100%，压成一段后回到 0% 且思考更高。只改本次请求，不动落盘记录",
+    "default": true
+  },
+  "inject_max_gap_hours": {
+    "type": "float",
+    "description": "距上次注入超过这么多小时就强制注入",
+    "hint": "防断续聊天（聊两句走开几小时）永远攒不满轮数",
+    "default": 6
+  },
+  "scene_slice": {
+    "type": "bool",
+    "description": "短消息是否切换到精简人设（fish-scene）",
+    "hint": "2026-11-03 起停用：长短人设已统一为同一份 533 字，切换只会丢掉表情包说明和工具句。改成 true 才恢复旧行为",
+    "default": false
+  },
+  "memory_max_chars": {
+    "type": "int",
+    "description": "记忆卡容量上限（字）",
+    "hint": "超过 80/90/100% 会告警，满了自动压缩最不重要、最久没提的记忆",
+    "default": 6000
+  },
+  "min_owner_importance": {
+    "type": "int",
+    "description": "主人相关记忆的门槛",
+    "hint": "只管清晰度显示（>= 门槛的不会掉到「只剩印象」），不参与遗忘判定",
+    "default": 65
+  },
+  "recent_days": {
+    "type": "int",
+    "description": "最近几天内的记忆至少保持「清楚」",
+    "default": 7
+  },
+  "fuzzy_after_days": {
+    "type": "int",
+    "description": "多少天后开始变模糊",
+    "default": 7
+  },
+  "forget_after_days": {
+    "type": "int",
+    "description": "不重要记忆最早多少天后可以彻底遗忘",
+    "default": 60
+  },
+  "recall_limit": {
+    "type": "int",
+    "description": "翻旧账最多返回几条",
+    "default": 5
+  },
+  "min_daily_messages": {
+    "type": "int",
+    "description": "当天至少多少条才写日记",
+    "default": 6
+  },
+  "renew_days_limit": {
+    "type": "int",
+    "description": "同一件事重复超过几天就不再保鲜",
+    "default": 3
+  },
+  "decay_per_day": {
+    "type": "int",
+    "description": "每天扣多少分（恒定）",
+    "default": 7
+  },
+  "mention_gain": {
+    "type": "int",
+    "description": "被重新提到时回补多少分",
+    "hint": "被重新提到时回补多少分；同时出生分 +1（封顶 100），提得越多活得越久",
+    "default": 14
+  },
+  "forget_floor": {
+    "type": "int",
+    "description": "低于这个分数就遗忘（斩杀线）",
+    "default": 30
+  },
+  "immune_birth": {
+    "type": "int",
+    "description": "出生分达到这个值永不衰减；101 = 关闭（只留 pinned 永久）",
+    "default": 101
+  },
+  "self_interval_days": {
+    "type": "int",
+    "description": "每隔几天重写一次自述",
+    "hint": "太短会让自述跟着一天的情绪抖，太长会过时。生产值 5",
+    "default": 5
+  },
+  "self_since": {
+    "type": "string",
+    "description": "自述只读这一天（含）之后的日记（YYYY-MM-DD）",
+    "hint": "重生/清空上下文之后填当天日期，旧日记就不再参与「我是谁」；留空 = 不设限",
+    "default": ""
+  },
+  "alone_times": {
+    "type": "string",
+    "description": "独处时间（逗号分隔 HH:MM）",
+    "hint": "一天两次，她自己待着、写点东西进 memory/blackbox/；留空=不跑。这些内容不进日记、不进卡片、不进自述",
+    "default": "15:00,21:30"
+  },
+  "alone_chars": {
+    "type": "int",
+    "description": "独处时喂给她的记录上限（字）",
+    "hint": "对话轮只给 6k，这里可以给到 3 万字，让她能回头看几天",
+    "default": 30000
+  },
+  "world_city": {
+    "type": "string",
+    "description": "她所在的城市（写进世界状态）",
+    "default": "绍兴越城"
+  },
+  "world_lat": {
+    "type": "float",
+    "description": "纬度（天气按这个点取）",
+    "default": 30.0024
+  },
+  "world_lon": {
+    "type": "float",
+    "description": "经度",
+    "default": 120.5817
+  },
+  "card_mode": {
+    "type": "string",
+    "description": "记忆卡注入方式",
+    "hint": "retrieve=按当前这句话检索 2-4 条（省预算，卡池再大也不涨）；full=每轮挂整块（回退用）",
+    "default": "retrieve",
+    "options": [
+      "retrieve",
+      "full"
+    ]
+  },
+  "embedding_backend": {
+    "type": "string",
+    "description": "记忆检索的向量后端",
+    "hint": "local=进程内 bge-small-zh-v1.5（默认，不联网、不烧额度）；remote=方舟 doubao-embedding-vision（旧路径，退路）；off=不用向量，只走关键词",
+    "default": "local",
+    "options": [
+      "local",
+      "remote",
+      "off"
+    ]
+  },
+  "embedding_model_dir": {
+    "type": "string",
+    "description": "本地向量模型目录（留空则用 <机器人目录>\\models\\bge-small-zh-v1.5）",
+    "default": ""
+  },
+  "persona_id": {
+    "type": "string",
+    "description": "人设 ID（取 data_v4.db 的 personas.persona_id）",
+    "hint": "日记 prompt 会按这个 ID 取人设当已知设定；改成别人设前先确认库里那一行存在",
+    "default": "default"
+  },
+  "merge_short_seconds": {
+    "type": "int",
+    "description": "短句合并等待秒数（0 会被兜底成 15，要关就填 1）",
+    "hint": "他连发几条短句时，等这么久把几条并成一次请求；填太大会让「在吗」这种开场白卡住",
+    "default": 2
+  }
+}
