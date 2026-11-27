@@ -26,8 +26,33 @@
 
 - **AstrBot 4.x**（本项目在 4.29.3 上开发）。注意 AstrBot 是 **AGPL-3.0-or-later**，见 [NOTICE.md](NOTICE.md)。
 - 一个能收发私聊的 QQ 号，以及任意 OneBot v11 实现（**本项目不含也不分发**）。
-- Python 3.11+；`numpy` 用于本地向量检索。
-- 可选：`ffmpeg`（看片抽帧）、本地句向量模型目录（`bge-small-zh-v1.5` 的 ONNX 版）。
+- Python 3.11+；`numpy` + `onnxruntime`
+- **本地句向量模型（必需，见下节）**：`bge-small-zh-v1.5`
+- 可选：`ffmpeg`（看片抽帧）
+
+## 本地向量模型（必需）
+
+记忆检索默认走**本地句向量**，不联网。没有模型时它会**不报错、静默退化成关键词匹配**——
+表现为"检索不准、答非所问"，极容易被误判成逻辑 bug。
+
+- **来源**：ModelScope 搜 `bge-small-zh-v1.5`（HuggingFace 在国内通常不通）
+- **目录结构**（目录名随意，路径由配置给）：
+
+```text
+bge-small-zh-v1.5/
+├─ tokenizer.json
+├─ vocab.txt
+├─ config.json
+├─ model.onnx
+└─ model.onnx.data     ← 权重，别漏
+```
+
+  `model.safetensors` 只有 torch 退路才用，ONNX 推理不需要。
+
+- **配置**：`embedding_backend: "local"` + `embedding_model_dir: "<上面那个目录>"`
+  也可以用环境变量 `FISH_EMBED_MODEL_DIR` 覆盖（两者都支持）
+- **没有现成 ONNX 时**：用 `tools/export_onnx.py` 自己导（需要临时装 `torch`、`onnx`、`onnxscript`）。
+  脚本跑完会做一次 torch / onnx 的一致性比对，余弦差 < 1e-4 视为通过。
 
 ## 安装
 

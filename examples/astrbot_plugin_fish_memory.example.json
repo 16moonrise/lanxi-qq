@@ -9,5 +9,6 @@
   "embedding_model_dir": "",
   "merge_short_seconds": 5,
   "letter_cooldown_days": 14,
+  "_comment_embedding": "embedding 是必需的：bge-small-zh-v1.5 的 ONNX 目录，见 README；缺模型会静默退化成关键词匹配",
   "_comment": "复制为 AstrBot 插件配置后填写：memory_dir 指向记忆目录；watch_umos 填要监听的会话 ID；persona_id 填 AstrBot 里的人格 ID。切勿提交填好的版本。"
 }
